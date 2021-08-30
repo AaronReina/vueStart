@@ -1,18 +1,61 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <InputStandar
+      idString="filter"
+      text="Introduce el nombre"
+      :data="state"
+      :change="filterPokemons"
+    ></InputStandar>
+    <Table
+      :list="$store.state.filterPokeList"
+      :action1="setFavorite"
+      :action2="pokeInfo"
+      :listFavorite="$store.state.favorites"
+    />
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+<script lang="ts">
+import Table from "../components/Table.vue"; // @ is an alias to /src
+import InputStandar from "../components/InputStandar.vue"; // @ is an alias to /src
+
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
-  name: 'Home',
+  name: "Home",
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    // const filterPokemons = store.commit("getFilterPokeList(state.filter)");
+    let state = {
+      filter: "",
+    };
+    const filterPokemons = () => {
+      store.commit("getFilterPokeList", state.filter);
+    };
+    const setFavorite = (data) => {
+      store.commit("favoriteSelection", data);
+    };
+
+    const pokeInfo = (name) => {
+      router.push(`/info/${name}`);
+    };
+    return {
+      state,
+      filterPokemons,
+      setFavorite,
+      pokeInfo,
+    };
+  },
+  async beforeMount() {
+    const store = useStore();
+    await store.commit("getPokeList");
+  },
   components: {
-    HelloWorld
-  }
-}
+    Table,
+    InputStandar,
+  },
+};
 </script>
