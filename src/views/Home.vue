@@ -28,15 +28,14 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    // const filterPokemons = store.commit("getFilterPokeList(state.filter)");
     let state = {
       filter: "",
     };
     const filterPokemons = () => {
-      store.commit("getFilterPokeList", state.filter);
+      store.dispatch("getFilterPokeList", state.filter);
     };
     const setFavorite = (data) => {
-      store.commit("favoriteSelection", data);
+      store.dispatch("favoriteSelection", data);
     };
 
     const pokeInfo = (name) => {
@@ -51,7 +50,7 @@ export default {
   },
   async beforeMount() {
     const store = useStore();
-    await store.commit("getPokeList");
+    await store.dispatch("getPokeList");
   },
   components: {
     Table,

@@ -23,6 +23,7 @@ export default createStore({
       state.spinner = data;
     },
     getPokeList: async (state) => {
+      console.log("!asdasd·");
       try {
         state.spinner = true;
 
@@ -50,10 +51,10 @@ export default createStore({
     },
   },
   actions: {
-    actionFavouriteSelection: ({ commit }, data) => {
-      commit("favouriteSelection", data);
+    favoriteSelection: ({ commit }, data) => {
+      commit("favoriteSelection", data);
     },
-    actionSpinnerOption: ({ commit }, data) => {
+    spinnerOption: ({ commit }, data) => {
       commit("spinnerOption", data);
     },
     getPokeList: ({ commit }) => {

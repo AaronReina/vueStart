@@ -101,7 +101,7 @@ export default {
       }
     };
     const setFavorite = (data) => {
-      store.commit("favoriteSelection", data);
+      store.dispatch("favoriteSelection", data);
     };
 
     onBeforeMount(() => {
